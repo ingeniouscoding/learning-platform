@@ -1,17 +1,7 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,4 +17,19 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::resource('courses', \App\Http\Controllers\CourseController::class);
+Route::prefix('courses')->group(function () {
+    Route::get('/', [CourseController::class, 'index'])
+        ->name('courses.index');
+    Route::get('/create', [CourseController::class, 'create'])
+        ->name('courses.create');
+    Route::get('/{id}', [CourseController::class, 'show'])
+        ->name('courses.show');
+    Route::get('/{id}/edit', [CourseController::class, 'edit'])
+        ->name('courses.edit');
+    Route::post('/', [CourseController::class, 'store'])
+        ->name('courses.store');
+    Route::patch('/{id}', [CourseController::class, 'update'])
+        ->name('courses.update');
+    Route::delete('/{id}', [CourseController::class, 'destroy'])
+        ->name('courses.destroy');
+});

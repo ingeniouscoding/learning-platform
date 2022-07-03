@@ -5,25 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use Barryvdh\Debugbar\Facades\Debugbar;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 
 class CourseController extends Controller
 {
-    public function index(): Factory|View|Application
+    public function index()
     {
         $courses = Course::all();
         return view('courses.index', compact('courses'));
     }
 
-    public function create(): Factory|View|Application
+    public function create()
     {
         return view('courses.create');
     }
 
-    public function store(StoreCourseRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreCourseRequest $request)
     {
         $course = Course::make($request->validated());
         $isSaved = $course->save();
@@ -35,14 +31,22 @@ class CourseController extends Controller
         return redirect()->route('courses.index');
     }
 
-    public function show(Course $course)
+    public function show(string $id)
     {
-        //
+        $course = Course::find($id);
+        if (is_null($course)) {
+            return view('courses.not-found');
+        }
+        return view('courses.show', compact('course'));
     }
 
-    public function edit(Course $course)
+    public function edit(string $id)
     {
-        //
+        $course = Course::find($id);
+        if (is_null($course)) {
+            return view('courses.not-found');
+        }
+        return view('courses.edit', compact('course'));
     }
 
     public function update(UpdateCourseRequest $request, Course $course)
@@ -50,8 +54,13 @@ class CourseController extends Controller
         //
     }
 
-    public function destroy(Course $course)
+    public function destroy(string $id)
     {
-        //
+        Course::query()
+            ->select(['id', 'name'])
+            ->findOrFail($id)
+            ->delete();
+        
+        return redirect()->route('courses.index');
     }
 }
