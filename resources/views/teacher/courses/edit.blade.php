@@ -20,7 +20,11 @@
         @php /** @var $lesson \App\Models\Lesson */ @endphp
 
         <h2>Lesson: {{ $loop->index + 1 }}</h2>
-        <h3>{{ $lesson->name }}</h3>
+        <h3>
+            <a href="{{ route('teacher.lessons.show', $lesson->id) }}">
+                {{ $lesson->name }}
+            </a>
+        </h3>
     @endforeach
 
 @endsection

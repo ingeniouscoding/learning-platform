@@ -37,7 +37,9 @@ class LessonController extends Controller
         if (is_null($lesson)) {
             return view('teacher.lessons.not-found');
         }
-        return view('teacher.lessons.show', compact('lesson'));
+        $options = explode(';', $lesson->options);
+
+        return view('teacher.lessons.show', compact(['lesson', 'options']));
     }
 
     public function edit(string $id)

@@ -1,4 +1,10 @@
-@php /** @var $lesson \App\Models\Lesson */ @endphp
+@php
+    /**
+     * @var $lesson \App\Models\Lesson
+     * @var $total int
+     * @var $correct int
+     */
+@endphp
 
 @extends('layouts.student')
 
@@ -10,6 +16,9 @@
 
     <h3>{{ $lesson->description }}</h3>
 
+    <hr>
+    <h3>Total submissions: {{ $total }}</h3>
+    <h3>Correct: {{ $correct }}%</h3>
     <hr>
 
     <livewire:quiz :lesson="$lesson"/>

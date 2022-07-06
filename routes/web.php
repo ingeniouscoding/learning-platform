@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Student\AnswerController;
 use App\Http\Controllers\Student\CourseController as StudentCourseController;
 use App\Http\Controllers\Student\LessonController as StudentLessonController;
 use App\Http\Controllers\Teacher\CourseController as TeacherCourseController;
@@ -20,7 +21,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::prefix('teacher/courses')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('teacher/courses')->group(function () {
     Route::get('/', [TeacherCourseController::class, 'index'])
         ->name('teacher.courses.index');
     Route::get('/create', [TeacherCourseController::class, 'create'])
@@ -37,7 +38,7 @@ Route::prefix('teacher/courses')->group(function () {
         ->name('teacher.courses.destroy');
 });
 
-Route::prefix('teacher/lessons')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('teacher/lessons')->group(function () {
     Route::get('/create', [TeacherLessonController::class, 'create'])
         ->name('teacher.lessons.create');
     Route::get('/{id}', [TeacherLessonController::class, 'show'])
@@ -52,14 +53,19 @@ Route::prefix('teacher/lessons')->group(function () {
         ->name('teacher.lessons.destroy');
 });
 
-Route::prefix('courses')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('courses')->group(function () {
     Route::get('/', [StudentCourseController::class, 'index'])
         ->name('student.courses.index');
     Route::get('/{id}', [StudentCourseController::class, 'show'])
         ->name('student.courses.show');
 });
 
-Route::prefix('lessons')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('lessons')->group(function () {
     Route::get('/{id}', [StudentLessonController::class, 'show'])
         ->name('student.lessons.show');
+});
+
+Route::middleware(['auth:sanctum'])->prefix('answers')->group(function () {
+    Route::get('/{id}', [AnswerController::class, 'show'])
+        ->name('student.answers.show');
 });

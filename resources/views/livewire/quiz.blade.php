@@ -2,11 +2,14 @@
     /**
      * @var $radios string[]
      * @var $isCorrect bool
+     * @var $lessonId int
      * @var $isSubmitted bool
+     * @var $hasSubmissions bool
      */
 @endphp
 
 <div>
+
     <div x-data="{ answer: null }">
         <fieldset>
             @foreach($radios as $radio)
@@ -25,19 +28,22 @@
             <div>
                 <button wire:click="retry" x-on:click="answer = null">Try again</button>
             </div>
-            @if($isCorrect )
-                <div>
+            <div>
+                @if($isCorrect )
                     Correct
-                </div>
-            @else
-                <div>
+                @else
                     This is not correct. Try again.
-                </div>
-            @endif
+                @endif
+            </div>
         @else
             <button wire:click="check" wire:loading.attr="disabled" x-bind:disabled="!answer">
                 Check
             </button>
         @endif
     </div>
+
+    @if($hasSubmissions)
+        <a href="{{ route('student.answers.show', $lessonId) }}">Answers</a>
+    @endif
+
 </div>

@@ -1,4 +1,9 @@
-@php /** @var $lesson \App\Models\Lesson */ @endphp
+@php
+    /**
+     * @var $lesson \App\Models\Lesson
+     * @var $options string[]
+     */
+@endphp
 
 @extends('layouts.teacher')
 
@@ -12,4 +17,10 @@
 
     <h3>{{ $lesson->description }}</h3>
 
+    <h4>Correct answer: {{ $lesson->answer }}</h4>
+    <ol>
+        @foreach($options as $option)
+            <li>{{ $option }}</li>
+        @endforeach
+    </ol>
 @endsection
