@@ -22,6 +22,7 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         $course = Course::make($request->validated());
+
         $isSaved = $course->save();
         if (!$isSaved) {
             return back()
@@ -33,7 +34,8 @@ class CourseController extends Controller
 
     public function show(string $id)
     {
-        $course = Course::find($id);
+        $course = Course::with('lessons')->find($id);
+
         if (is_null($course)) {
             return view('courses.not-found');
         }
@@ -42,7 +44,8 @@ class CourseController extends Controller
 
     public function edit(string $id)
     {
-        $course = Course::find($id);
+        $course = Course::with('lessons')->find($id);
+
         if (is_null($course)) {
             return view('courses.not-found');
         }
@@ -57,10 +60,10 @@ class CourseController extends Controller
     public function destroy(string $id)
     {
         Course::query()
-            ->select(['id', 'name'])
+            ->select(['id'])
             ->findOrFail($id)
             ->delete();
-        
+
         return redirect()->route('courses.index');
     }
 }

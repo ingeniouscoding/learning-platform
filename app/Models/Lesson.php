@@ -31,7 +31,13 @@ class Lesson extends Model
 {
     use HasFactory;
 
-    public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    protected $fillable = [
+        'name',
+        'description',
+        'course_id',
+    ];
+
+    public function course()
     {
         return $this->belongsTo(Lesson::class);
     }

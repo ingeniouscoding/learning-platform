@@ -14,4 +14,13 @@
         <input type="submit" value="Delete">
     </form>
 
+    <a href="{{ route('lessons.create', ['course_id' => $course->id]) }}">Add lesson</a>
+
+    @foreach($course->lessons as $lesson)
+        @php /** @var $lesson \App\Models\Lesson */ @endphp
+
+        <h2>Lesson: {{ $loop->index + 1 }}</h2>
+        <h3>{{ $lesson->name }}</h3>
+    @endforeach
+
 @endsection

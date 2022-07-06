@@ -19,6 +19,8 @@
 </head>
 <body>
 
+@include('includes.header')
+
 @yield('content')
 
 @livewireScripts

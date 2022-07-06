@@ -35,7 +35,7 @@ class Course extends Model
         'description',
     ];
 
-    public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function lessons()
     {
         return $this->hasMany(Lesson::class);
     }
