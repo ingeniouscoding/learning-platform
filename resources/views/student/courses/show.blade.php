@@ -1,6 +1,6 @@
-@php /** @var $course \App\Models\Course */ @endphp
+{{--@php /** @var $course \App\Models\Course */ @endphp--}}
 
-@extends('layouts.basic')
+@extends('layouts.student')
 
 @section('title', 'Show course')
 
@@ -15,10 +15,7 @@
         @php /** @var $lesson \App\Models\Lesson */ @endphp
 
         <h2>Lesson: {{ $loop->index + 1 }}</h2>
-        <h3>{{ $lesson->name }}</h3>
+        <h3><a href="{{ route('student.lessons.show', $lesson->id) }}">{{ $lesson->name }}</a></h3>
     @endforeach
-
-    <p><a href="{{ route('courses.edit', $course->id) }}">Edit</a></p>
-    <p><a href="{{ route('lessons.create', ['course_id' => $course->id]) }}">Add lesson</a></p>
 
 @endsection

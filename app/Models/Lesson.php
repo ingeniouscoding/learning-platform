@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $description
  * @property int $course_id
+ * @property string $answer
+ * @property string $options
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Lesson $course
@@ -26,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereAnswer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lesson whereOptions($value)
  */
 class Lesson extends Model
 {
@@ -35,6 +39,8 @@ class Lesson extends Model
         'name',
         'description',
         'course_id',
+        'answer',
+        'options',
     ];
 
     public function course()

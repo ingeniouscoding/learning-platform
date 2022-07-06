@@ -1,4 +1,4 @@
-@extends('layouts.basic')
+@extends('layouts.teacher')
 
 @section('title', 'Course not found')
 

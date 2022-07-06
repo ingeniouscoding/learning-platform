@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\LessonController;
+use App\Http\Controllers\Student\CourseController as StudentCourseController;
+use App\Http\Controllers\Student\LessonController as StudentLessonController;
+use App\Http\Controllers\Teacher\CourseController as TeacherCourseController;
+use App\Http\Controllers\Teacher\LessonController as TeacherLessonController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,34 +20,46 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::prefix('teacher/courses')->group(function () {
+    Route::get('/', [TeacherCourseController::class, 'index'])
+        ->name('teacher.courses.index');
+    Route::get('/create', [TeacherCourseController::class, 'create'])
+        ->name('teacher.courses.create');
+    Route::get('/{id}', [TeacherCourseController::class, 'show'])
+        ->name('teacher.courses.show');
+    Route::get('/{id}/edit', [TeacherCourseController::class, 'edit'])
+        ->name('teacher.courses.edit');
+    Route::post('/', [TeacherCourseController::class, 'store'])
+        ->name('teacher.courses.store');
+    Route::patch('/{id}', [TeacherCourseController::class, 'update'])
+        ->name('teacher.courses.update');
+    Route::delete('/{id}', [TeacherCourseController::class, 'destroy'])
+        ->name('teacher.courses.destroy');
+});
+
+Route::prefix('teacher/lessons')->group(function () {
+    Route::get('/create', [TeacherLessonController::class, 'create'])
+        ->name('teacher.lessons.create');
+    Route::get('/{id}', [TeacherLessonController::class, 'show'])
+        ->name('teacher.lessons.show');
+    Route::get('/{id}/edit', [TeacherLessonController::class, 'edit'])
+        ->name('teacher.lessons.edit');
+    Route::post('/', [TeacherLessonController::class, 'store'])
+        ->name('teacher.lessons.store');
+    Route::patch('/{id}', [TeacherLessonController::class, 'update'])
+        ->name('teacher.lessons.update');
+    Route::delete('/{id}', [TeacherLessonController::class, 'destroy'])
+        ->name('teacher.lessons.destroy');
+});
+
 Route::prefix('courses')->group(function () {
-    Route::get('/', [CourseController::class, 'index'])
-        ->name('courses.index');
-    Route::get('/create', [CourseController::class, 'create'])
-        ->name('courses.create');
-    Route::get('/{id}', [CourseController::class, 'show'])
-        ->name('courses.show');
-    Route::get('/{id}/edit', [CourseController::class, 'edit'])
-        ->name('courses.edit');
-    Route::post('/', [CourseController::class, 'store'])
-        ->name('courses.store');
-    Route::patch('/{id}', [CourseController::class, 'update'])
-        ->name('courses.update');
-    Route::delete('/{id}', [CourseController::class, 'destroy'])
-        ->name('courses.destroy');
+    Route::get('/', [StudentCourseController::class, 'index'])
+        ->name('student.courses.index');
+    Route::get('/{id}', [StudentCourseController::class, 'show'])
+        ->name('student.courses.show');
 });
 
 Route::prefix('lessons')->group(function () {
-    Route::get('/create', [LessonController::class, 'create'])
-        ->name('lessons.create');
-    Route::get('/{id}', [LessonController::class, 'show'])
-        ->name('lessons.show');
-    Route::get('/{id}/edit', [LessonController::class, 'edit'])
-        ->name('lessons.edit');
-    Route::post('/', [LessonController::class, 'store'])
-        ->name('lessons.store');
-    Route::patch('/{id}', [LessonController::class, 'update'])
-        ->name('lessons.update');
-    Route::delete('/{id}', [LessonController::class, 'destroy'])
-        ->name('lessons.destroy');
+    Route::get('/{id}', [StudentLessonController::class, 'show'])
+        ->name('student.lessons.show');
 });

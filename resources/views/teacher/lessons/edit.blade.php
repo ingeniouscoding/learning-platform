@@ -1,6 +1,6 @@
 @php /** @var $lesson \App\Models\Lesson */ @endphp
 
-@extends('layouts.basic')
+@extends('layouts.teacher')
 
 @section('title', 'Edit lesson')
 
@@ -10,7 +10,7 @@
 
     @error('save') <h3>{{ $message }}</h3> @enderror
 
-    <form method="POST" action="{{ route('lessons.update', $lesson->id) }}">
+    <form method="POST" action="{{ route('teacher.lessons.update', $lesson->id) }}">
         @csrf
         @method('PATCH')
         <div>
@@ -32,6 +32,10 @@
         </div>
     </form>
 
-    <form action="{{ route('lessons.destroy', $lesson->id) }}"></form>
+    <form action="{{ route('teacher.lessons.destroy', $lesson->id) }}">
+        @csrf
+        @method('DELETE')
+        <input type="submit" value="Delete">
+    </form>
 
 @endsection

@@ -1,7 +1,10 @@
 <header>
     <ul>
         <li>
-            <a href="{{ route('courses.index') }}">Courses</a>
+            <a href="{{ route('teacher.courses.index') }}">Teacher Courses</a>
+        </li>
+        <li>
+            <a href="{{ route('student.courses.index') }}">Student Courses</a>
         </li>
     </ul>
 </header>

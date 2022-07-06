@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|Lesson[] $lessons
+ * @property-read \Illuminate\Database\Eloquent\Collection|Lesson[] $teacher_lessons
  * @property-read int|null $lessons_count
  * @method static \Database\Factories\CourseFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Course newModelQuery()

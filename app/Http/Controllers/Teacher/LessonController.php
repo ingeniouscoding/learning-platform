@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Teacher;
 
-use App\Models\Lesson;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -13,7 +14,7 @@ class LessonController extends Controller
     {
         $course_id = $request->get('course_id');
 
-        return view('lessons.create', compact('course_id'));
+        return view('teacher.lessons.create', compact('course_id'));
     }
 
     public function store(StoreLessonRequest $request)
@@ -26,7 +27,7 @@ class LessonController extends Controller
                 ->withInput()
                 ->withErrors(['save' => 'Save error. Try again.']);
         }
-        return redirect()->route('courses.edit', $lesson->course_id);
+        return redirect()->route('teacher.courses.edit', $lesson->course_id);
     }
 
     public function show(string $id)
@@ -34,9 +35,9 @@ class LessonController extends Controller
         $lesson = Lesson::find($id);
 
         if (is_null($lesson)) {
-            return view('lessons.not-found');
+            return view('teacher.lessons.not-found');
         }
-        return view('lessons.show', compact('lesson'));
+        return view('teacher.lessons.show', compact('lesson'));
     }
 
     public function edit(string $id)
@@ -44,9 +45,9 @@ class LessonController extends Controller
         $lesson = Lesson::find($id);
 
         if (is_null($lesson)) {
-            return view('lessons.not-found');
+            return view('teacher.lessons.not-found');
         }
-        return view('lessons.edit', compact('lesson'));
+        return view('teacher.lessons.edit', compact('lesson'));
     }
 
     public function update(UpdateLessonRequest $request, Lesson $lesson)
@@ -56,13 +57,11 @@ class LessonController extends Controller
 
     public function destroy(string $id)
     {
-        $lesson = Lesson::query()
-            ->select(['id', 'course_id'])
-            ->findOrFail($id);
+        $lesson = Lesson::findOrFail($id, ['id', 'course_id']);
 
         $courseId = $lesson->course_id;
         $lesson->delete();
 
-        return redirect()->route('courses.show', $courseId);
+        return redirect()->route('teacher.courses.show', $courseId);
     }
 }

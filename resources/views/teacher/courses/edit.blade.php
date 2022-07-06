@@ -1,6 +1,6 @@
 @php /** @var $course \App\Models\Course */ @endphp
 
-@extends('layouts.basic')
+@extends('layouts.teacher')
 
 @section('title', "Edit course {$course->id}")
 
@@ -8,13 +8,13 @@
 
     <h2>Edit course {{ $course->id }}</h2>
 
-    <form action="{{ route('courses.destroy', $course->id) }}" method="POST">
+    <form action="{{ route('teacher.courses.destroy', $course->id) }}" method="POST">
         @csrf
         @method('DELETE')
         <input type="submit" value="Delete">
     </form>
 
-    <a href="{{ route('lessons.create', ['course_id' => $course->id]) }}">Add lesson</a>
+    <a href="{{ route('teacher.lessons.create', ['course_id' => $course->id]) }}">Add lesson</a>
 
     @foreach($course->lessons as $lesson)
         @php /** @var $lesson \App\Models\Lesson */ @endphp

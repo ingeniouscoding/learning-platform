@@ -27,6 +27,8 @@ class StoreLessonRequest extends FormRequest
             'name' => ['required'],
             'description' => ['required'],
             'course_id' => ['required'],
+            'answer' => ['nullable'],
+            'options' => ['nullable'],
         ];
     }
 }
